@@ -11,6 +11,7 @@ Las instancias EC2 tienen acceso a dos bases de datos: Aurora, base de datos rel
 
 Por último, el backend consume microservicios externos, por lo que se utilizan Nat Gateways en las subnets públicas para darles acceso a internet de forma segura.
 
+
 Alternativas:
 
 El backend se puede correr utilizando lambdas en vez de instancias EC2, solución serverless. Se reemplazaría el load balancer y las instancias EC2 por un API Gateway que enruta las solicitudes a la función Lambda, que tendría el mismo acceso a las bases de datos y microservicios externos.
