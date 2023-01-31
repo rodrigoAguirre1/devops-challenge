@@ -30,13 +30,14 @@ Route table de una subnet privada:
 
 El security group para las instancias EC2 sería:
 
-| --- | INBOUND | --- |
-| --- | --- | --- |
+Inbound rules:
+
 | Source | Protocol | Port |
 | --- | --- | --- |
 | App Load Balancer SG ID | HTTP/HTTPS | LB port range |
 
-| OUTBOUND |
+Outbound rules:
+
 | Destination | Protocol | Port |
 | --- | --- | --- |
 | DynamoDB SG ID | TCP | DynamoDB port range |
