@@ -5,7 +5,7 @@ Consiste en un diagrama de red de una aplicación web en AWS, con frontend en Js
 
 ![Diagrama de red de una aplicación web](https://raw.githubusercontent.com/rodrigoAguirre1/devops-challenge/master/test-1/diagrama-de-red-app.png)
 
-Se utiliza el servicio Route53 para administrar un nombre de dominio propio y crear un registro de alias que apunte a la distribución de CloudFront.
+Se utiliza el servicio Route53 para crear y administrar un nombre de dominio propio. Se crea una Hosted zone y dentro de ella los distintos Record names (nombres de dominio y subdominio) que van a redirigir a la distribución de CloudFront.
 
 CloudFront se utiliza para la distribución del contenido de la aplicación web, apuntando al bucket S3 donde está almacenado el frontend y al backend que corre en instancias EC2 a través del ALB. Esto mejora el rendimiento ya que a partir de una primera solicitud CloudFront almacena el contenido en la Edge Location más cercana a la ubicación del usuario y la próxima vez que un usuario haga la misma solicitud y se encuentre en el radio de esa Edge Location, la latencia será menor (comparado con tener que hacer la solicitud directamente al bucket S3).
 
@@ -45,7 +45,8 @@ Outbound rules:
 | Microservice1 SG ID | TCP | Microservice1 port range |
 | Microservice2 SG ID | TCP | Microservice2 port range |
 
-Alternativas:
+
+### Alternativas:
 
 El backend se puede correr utilizando Lambda en vez de instancias EC2: solución serverless. Se reemplazaría el load balancer y las instancias EC2 por un API Gateway que enruta las solicitudes a la función Lambda, que tendría el mismo acceso a las bases de datos y microservicios externos.
 
