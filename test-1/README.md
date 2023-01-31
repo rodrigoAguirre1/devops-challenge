@@ -1,3 +1,5 @@
+# TEST 1
+
 En esta carpeta se encuentra la resolución del Test 1.
 Consiste en un diagrama de red de una aplicación web en AWS, con frontend en Js y backend con una base de datos relacional y una no relacional. A su vez, el backend consume 2 microservicios externos.
 
@@ -28,7 +30,8 @@ Route table de una subnet privada:
 
 El security group para las instancias EC2 sería:
 
-| INBOUND |
+| --- | INBOUND | --- |
+| --- | --- | --- |
 | Source | Protocol | Port |
 | --- | --- | --- |
 | App Load Balancer SG ID | HTTP/HTTPS | LB port range |
