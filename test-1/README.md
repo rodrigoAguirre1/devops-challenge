@@ -1,6 +1,9 @@
 En esta carpeta se encuentra la resolución del Test 1.
 Consiste en un diagrama de red de una aplicación web en AWS, con frontend en Js y backend con una base de datos relacional y una no relacional. A su vez, el backend consume 2 microservicios externos.
 
+![Diagrama de red de una aplicación web]
+(https://raw.githubusercontent.com/rodrigoAguirre1/devops-challenge/master/test-1/Diagrama de red aplicación web.png)
+
 Se utiliza el servicio Route53 para administrar un nombre de dominio propio y crear un registro de alias que apunte a la distribución de CloudFront.
 
 CloudFront se utiliza para la distribución del contenido de la aplicación web, apuntando al bucket S3 donde está almacenado el frontend y al backend que corre en instancias EC2 a través del ALB.
