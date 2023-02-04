@@ -1,0 +1,46 @@
+# Versión de docker compose.
+version: '3.9'
+
+# Servicios que se van a deployar.
+services:
+
+  backend: 
+    build: 
+      # Se le dice dónde encontrar el archivo Dockerfile de este servicio
+      # desde la ubicación de docker-compose.
+      context: ./backend
+      dockerfile: Dockerfile
+    
+    # Se ejecuta este comando para hostear el backend.
+    # El archivo wsgi dentro del backend contiene la configuración
+    # para permitir que gunicorn hostee la app Django.
+    # Por último se vincula un IP con un puerto para poder
+    # acceder desde fuera del contenedor (Django dentro del
+    # contenedor está expuesto en el puerto 8000).
+    command: gunicorn backendweb.wsgi --bind 0.0.0.0:8000
+
+    # Se mapean los puertos para poder acceder a este servicio 
+    # desde el local.
+    ports:
+      - '8000:8000'
+
+  frontend:
+    build:
+
+      # Se le dice dónde encontrar el archivo Dockerfile de este servicio
+      # desde la ubicación de docker-compose.
+      context: ./frontend
+      dockerfile: Dockerfile
+    
+    # Se asigna el puerto 80 al 8080 (Nginx se ejecuta en el  
+    # 8080 y se quiere acceder desde el puerto 80 que es el puerto 
+    # por defecto para acceder a cuaquier página).
+    # Cuando el cliente accede a la página por el puerto 80
+    # se lo envía al puerto 8080.
+    ports:
+      - '80:8080'
+
+    # Por último, se agrega el depends_on para que se ejecute luego 
+    # del backend.
+    depends_on:
+      - backend

@@ -1,0 +1,32 @@
+.figure {
+  width: 120px;
+  border: 1px solid rgb(172, 171, 171);
+  font-weight: bold;
+}
+
+.image {
+  width: 120px;
+  border-bottom: 1px solid rgb(172, 171, 171);
+}
+
+.name {
+  text-decoration: none;
+  text-align: center;
+}
+
+.name-title {
+  text-decoration: none;
+  text-align: center;
+  color: rgb(88, 56, 56);
+  border-bottom: 1px solid gray;
+}
+
+.chars-conteiner {
+  border: 1px solid gray;
+  margin-bottom: 30px;
+}
+
+.row-chars {
+  display: flex;
+  justify-content: center;
+}
