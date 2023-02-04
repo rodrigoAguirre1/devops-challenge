@@ -3,7 +3,7 @@
 En esta carpeta se encuentra la resolución del Test 1.
 Consiste en un diagrama de red de una aplicación web en AWS, con frontend en Js y backend con una base de datos relacional y una no relacional. A su vez, el backend consume 2 microservicios externos.
 
-![Diagrama de red de una aplicación web](https://raw.githubusercontent.com/rodrigoAguirre1/devops-challenge/master/test-1/diagrama-red-app.png)
+![Diagrama de red de una aplicación web](https://raw.githubusercontent.com/rodrigoAguirre1/devops-challenge/master/test-1/diagrama-de-red-app.png)
 
 El browser primero realiza una request a la distribución de CloudFront y se trae el archivo estático Js del bucket S3, carga el frontend estático y realiza requests al backend a través del Application Load Balancer.
 
