@@ -6,4 +6,4 @@ FROM nginx:1.22-alpine
 # imagen de nginx.
 COPY index.html /usr/share/nginx/html/index.html
 
-EXPOSE 80
+EXPOSE 80 
