@@ -3,6 +3,8 @@ name: Deploy de la imagen de nginx
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'index.html'
 
 jobs:
   deploy:
