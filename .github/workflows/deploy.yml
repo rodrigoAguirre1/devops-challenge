@@ -32,8 +32,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr-outputs.registry }}
           ECR_REPOSITORY: ecr-web-image
-          IMAGE_TAG: index-nginx-image
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
