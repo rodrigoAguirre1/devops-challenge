@@ -25,4 +25,8 @@ FROM nginx:1.22-alpine
 # la imagen de nginx.
 # En este caso sirve al cliente el frontend y el backend.
 COPY ./nginx/nginx-setup.conf /etc/nginx/conf.d/default.conf
+
+# Se copian los archivos del frontend buildeados anteriormente
+# en un directorio dentro de la imagen de nginx, donde va a 
+# acceder al momento de hostear la página.
 COPY --from=builder /frontend/build /usr/share/nginx/html
