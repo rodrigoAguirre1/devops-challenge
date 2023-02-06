@@ -1,0 +1,53 @@
+name: Deploy de la imagen de nginx
+
+# Se define el trigger para la action. 
+# Cuando se haga un push a master y se 
+# haya modificado el index.html que se
+# encuentra dentro de test-3, se 
+# buildea una nueva imagen y se sube a ECR.
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - test-3/index.html
+
+jobs:
+  deploy:
+  
+    runs-on: ubuntu-latest
+
+    # Se define el directorio donde se ejecuta la action.
+    defaults:
+      run:
+        working-directory: test-3
+
+    steps:
+
+      # Se verifica el repositorio de github.
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Se configuran las credenciales de AWS requeridas para 
+      # la autorización de ECR.
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Se inicia sesión en Amazon ECR.
+      - name: Login a Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Se indica el nombre del repositorio y se corren los comandos
+      # para crear la nueva imagen y pushearla a ECR.
+      - name: Build, tag y push de la imagen a Amazon ECR.
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ecr-web-image
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
