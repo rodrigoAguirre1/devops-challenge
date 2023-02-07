@@ -19,4 +19,4 @@ export const name = [
     urlName: 'jerry',
     label: 'Jerrys'
   }
-]
+];

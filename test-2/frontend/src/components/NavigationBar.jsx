@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Navbar, Popover, OverlayTrigger } from 'react-bootstrap';
 import '../styles/NavigationBar.css';
 import img from '../images/navbar.png';
+// import { BACKEND_URL } from '../conf/config';
 
 export function NavigationBar() {
 
   const [data, setData] = useState(null);
 
   useEffect(() => {
-
-    // Se debería parametrizar el url del backend en la siguiente línea.
-    fetch('http://127.0.0.1/data/')
+    // En la linea siguiente se debería parametrizar la url (ej: var de entorno)
+    fetch('http://localhost:8000/data/')
       .then(res => res.json())
       .then(data => setData(data.data));
   })
@@ -37,7 +37,7 @@ export function NavigationBar() {
           <Navbar bg='dark' variant='dark' fixed='top' className='navbar'>
             <Container>
               <Navbar.Brand className='navbar-title'>
-                Rick and Morty 
+                Rick and Morty
               </Navbar.Brand>
             </Container>
             <Container>

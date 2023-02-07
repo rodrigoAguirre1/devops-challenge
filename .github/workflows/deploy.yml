@@ -55,4 +55,8 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+        # Al actualizar la imagen que está corriendo en el contenedor
+        # definido en la tarea, se crea una nueva revisión de definición
+        # de tarea con la nueva imagen y se implementa en el servicio.
           aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} --service ${{ secrets.CLUSTER_SERVICE }} --force-new-deployment

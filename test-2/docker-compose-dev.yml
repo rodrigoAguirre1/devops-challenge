@@ -1,0 +1,57 @@
+# Versión de docker compose.
+version: '3.9'
+
+# Servicios que se van a deployar.
+services:
+
+  backend: 
+    build: 
+      # Se le dice dónde encontrar el archivo Dockerfile de este servicio
+      # desde la ubicación de docker-compose.
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    
+    working_dir: /app
+
+    # Se ejecuta este comando para hostear el backend.
+    # El archivo asgi dentro del backend contiene la configuración
+    # para permitir que uvicorn hostee la app Django.
+    # Por último se vincula un IP con un puerto para poder
+    # acceder desde fuera del contenedor (Django dentro del
+    # contenedor está expuesto en el puerto 8000).
+    command: uvicorn backendweb.asgi:application --host 0.0.0.0 --port 8000 --reload
+
+    volumes:
+      - ./backend:/app
+
+    # Se mapean los puertos para poder acceder a este servicio 
+    # desde el local.
+    ports:
+      - '8000:8000'
+
+  frontend:
+    build:
+
+      # Se le dice dónde encontrar el archivo Dockerfile de este servicio
+      # desde la ubicación de docker-compose.
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    
+    working_dir: /app
+
+    # Se ejecuta este comando para hostear el frontend en modo desarrollador (host reload)
+    command: npm start
+
+    volumes:
+      - ./frontend:/app
+
+    # Se asigna el puerto 80 al 8080 (Nginx se ejecuta en el  
+    # 8080 y se quiere acceder desde el puerto 80 que es el puerto 
+    # por defecto para acceder a cuaquier página).
+    # Cuando el cliente accede a la página por el puerto 80
+    # se lo envía al puerto 8080.
+    ports:
+      - '3000:3000'
+
+    depends_on:
+      - backend

@@ -1,0 +1,14 @@
+# Se ejecuta una imagen de node que permite buildear el fronted.
+FROM node:18-alpine AS builder
+
+# Se crea un directorio en el contenedor, donde se va a 
+# copiar el código del frontend.
+WORKDIR /app
+
+# Se copian todos los archivos que se encuentran en la carpeta 
+# frontend dentro del contenedor (misma carpeta donde se encuentra
+# el Dockerfile).
+COPY package*.json ./
+
+# Se instalan las dependencias.
+RUN npm ci
