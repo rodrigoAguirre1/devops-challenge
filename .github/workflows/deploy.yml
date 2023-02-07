@@ -6,14 +6,15 @@ name: Deploy de la imagen de nginx
 # encuentra dentro de test-3, se 
 # buildea una nueva imagen y se sube a ECR.
 on:
-  push:
+  pull_request:
     branches: [ master ]
+    types: [ closed ]
     paths:
       - test-3/index.html
 
 jobs:
   deploy:
-  
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     # Se define el directorio donde se ejecuta la action.
@@ -46,8 +47,10 @@ jobs:
       - name: Build, tag y push de la imagen a Amazon ECR.
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ecr-web-image
+          ECR_REPOSITORY: ecr-public-images
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+        # aws ecs update-service --cluster <cluster_name> --service <service_name> --force-new-deployment
