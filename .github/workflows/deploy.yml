@@ -51,7 +51,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REGISTRY_ALIAS: ${{ secrets.ECR_ALIAS }}
           REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: image:v-${{ github.sha }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
