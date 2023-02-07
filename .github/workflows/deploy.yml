@@ -38,19 +38,22 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       # Se inicia sesión en Amazon ECR.
-      - name: Login a Amazon ECR
-        id: login-ecr
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
 
       # Se indica el nombre del repositorio y se corren los comandos
       # para crear la nueva imagen y pushearla a ECR.
-      - name: Build, tag y push de la imagen a Amazon ECR.
+      - name: Build, tag, and push docker image to Amazon ECR Public
         env:
-          # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ecr-public-images
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: ${{ secrets.ECR_ALIAS }}
+          REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: image:v-${{ github.sha }}
         run: |
-          docker build -t public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
 
         # aws ecs update-service --cluster <cluster_name> --service <service_name> --force-new-deployment
