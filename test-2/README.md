@@ -9,7 +9,7 @@ En el caso del backend, el Dockerfile primero importa requirements.txt e instala
 
 Por último, el docker-compose contiene los dos servicios backend y frontend. Este archivo permite definir y ejecutar la aplicación web dockerizada en dos contenedores.
 
-### Instrucciones:
+### Instrucciones para deploy en PC local:
 
 Desde la carpeta root donde se encuentran las carpetas backend y frontend, y el archivo docker-compose.yml se ejecutan los siguientes comandos:
 

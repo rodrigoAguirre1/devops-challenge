@@ -8,6 +8,8 @@ export function NavigationBar() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+
+    // Se debería parametrizar el url del backend en la siguiente línea.
     fetch('http://127.0.0.1/data/')
       .then(res => res.json())
       .then(data => setData(data.data));
