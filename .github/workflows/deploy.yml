@@ -6,15 +6,19 @@ name: Deploy de la imagen de nginx
 # encuentra dentro de test-3, se 
 # buildea una nueva imagen y se sube a ECR.
 on:
-  pull_request:
+  push:
     branches: [ master ]
-    types: [ closed ]
     paths:
       - test-3/index.html
+  # pull_request:
+  #   branches: [ master ]
+  #   types: [ closed ]
+  #   paths:
+  #     - test-3/index.html
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     # Se define el directorio donde se ejecuta la action.
