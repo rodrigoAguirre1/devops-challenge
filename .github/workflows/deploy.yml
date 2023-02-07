@@ -46,11 +46,11 @@ jobs:
       # para crear la nueva imagen y pushearla a ECR.
       - name: Build, tag y push de la imagen a Amazon ECR.
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ecr-public-images
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: image:v-${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push public.ecr.aws/$ECR_REPOSITORY:$IMAGE_TAG
 
         # aws ecs update-service --cluster <cluster_name> --service <service_name> --force-new-deployment
