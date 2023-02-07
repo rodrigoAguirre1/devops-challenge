@@ -59,4 +59,4 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-          aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} --force-new-deployment
+          aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} --service ${{ secrets.CLUSTER_SERVICE }} --force-new-deployment
