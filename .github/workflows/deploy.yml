@@ -1,7 +1,7 @@
 name: Deploy de la imagen de nginx
 
 # Se define el trigger para la action. 
-# Cuando se haga un push a master y se 
+# Cuando se haga un merge a master y se 
 # haya modificado el index.html que se
 # encuentra dentro de test-3, se 
 # buildea una nueva imagen y se sube a ECR.
